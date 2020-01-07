@@ -3,10 +3,20 @@
 ### netboot.xyz-custom menu
 ###
 
-:start
-echo Hello world!
-sleep 10
+:custom
+clear custom_choice
+menu This is a Test Menu
+item --gap This is the first sub menu
+item option_one ${space} Loads custom sub menu
+choose custom_choice || goto custom_exit
+echo ${cls}
+goto ${custom_choice}
 goto custom_exit
 
+:option_one
+echo Chains into another menu...
+chain https://raw.githubusercontent.com/dgmdevelopment/netboot.xyz-custom/master/custom1.ipxe || goto custom
+
 :custom_exit
-exit 0
+chain utils.ipxe
+exit
